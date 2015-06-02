@@ -101,7 +101,7 @@ Repair.prototype.aju = function(index) {
                         this.queue[index].status.push("postops");
                     } else {
                         this.queue[index].status.splice(0, 1);
-                        this.queue[index].status.push("service");
+                        this.queue[index].status.push("restore");
                     }
                 }
             } else {
@@ -112,7 +112,7 @@ Repair.prototype.aju = function(index) {
                     this.queue[index].status.push("postops");
                 } else {
                     this.queue[index].status.splice(0, 1);
-                    this.queue[index].status.push("service");
+                    this.queue[index].status.push("restore");
                 }
             }
         } else {
@@ -123,7 +123,7 @@ Repair.prototype.aju = function(index) {
                 this.queue[index].status.push("postops");
             } else {
                 this.queue[index].status.splice(0, 1);
-                this.queue[index].status.push("service");
+                this.queue[index].status.push("restore");
             }
         }
     } else {
