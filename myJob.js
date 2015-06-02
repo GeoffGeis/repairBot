@@ -32,7 +32,11 @@ Repair.prototype.sort = function() {
                     this.queue[i].status.push("postops");
                 } else {
                     this.queue[i].status.splice(0, 1);
-                    this.queue[i].status.push("order recovery media");
+                    if(this.queue[i].post) {
+                        this.queue[i].status.push("order recovery media");
+                    } else {
+                        this.queue[i].status.push("send to service");
+                    }
                 }
             } else if(this.queue[i].status[0] === "postops") {
                 pass = this.postOps(i);
