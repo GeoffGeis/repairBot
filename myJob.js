@@ -32,7 +32,7 @@ Repair.prototype.sort = function() {
                     this.queue[i].status.push("postops");
                 } else {
                     this.queue[i].status.splice(0, 1);
-                    this.queue[i].status.push("service");
+                    this.queue[i].status.push("order recovery media");
                 }
             } else if(this.queue[i].status[0] === "postops") {
                 pass = this.postOps(i);
@@ -46,7 +46,7 @@ Repair.prototype.sort = function() {
                         this.queue[i].status.push("complete");
                     } else {
                         this.queue[i].status.splice(0, 1);
-                        this.queue[i].status.push("service");
+                        this.queue[i].status.push("order recovery media");
                     }
                 }
             } else {
@@ -131,7 +131,7 @@ Repair.prototype.aju = function(index) {
         }
     } else {
         this.queue[index].status.splice(0, 1);
-        this.queue[index].status.push("service");
+        this.queue[index].status.push("send to service");
     }
 };
 
