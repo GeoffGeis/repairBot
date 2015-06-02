@@ -152,12 +152,16 @@ Repair.prototype.peMode = function(index) {
 
 Repair.prototype.restore = function(index) {
     var pass = false;
-    if(this.queue[index].recoveryPartition) {
-        pass = true;
-        return pass;
+    if(this.queue[index].post) {
+        if(this.queue[index].recoveryPartition) {
+            pass = true;
+            return pass;
+        } else {
+            return pass;
+        }
     } else {
         return pass;
-    }
+    }   
 };
 
 Repair.prototype.postOps = function(index) {
