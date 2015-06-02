@@ -84,10 +84,6 @@ Repair.prototype.dbu = function(index) {
     }
 };
 
-Repair.prototype.openSuspect = function() {
-    
-};
-
 Repair.prototype.aju = function(index) {
     var pass = false;
     if(this.queue[index].post) {
