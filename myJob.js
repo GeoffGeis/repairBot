@@ -1,13 +1,13 @@
 function Suspect(status) {
     this.status = status;
-    this.post = !!Math.floor(Math.random() * 2);
-    this.hddAccess = !!Math.floor(Math.random() * 2);
-    this.hddMount = !!Math.floor(Math.random() * 2);
-    this.userAccount = !!Math.floor(Math.random() * 2);
-    this.networking = !!Math.floor(Math.random() * 2);
-    this.browserDownloads = !!Math.floor(Math.random() * 2);
-    this.recoveryPartition = !!Math.floor(Math.random() * 2);
-    this.update = !!Math.floor(Math.random() * 2);
+    this.post = !!Math.floor(Math.random() * 8);
+    this.hddAccess = !!Math.floor(Math.random() * 8);
+    this.hddMount = !!Math.floor(Math.random() * 8);
+    this.userAccount = !!Math.floor(Math.random() * 8);
+    this.networking = !!Math.floor(Math.random() * 8);
+    this.browserDownloads = !!Math.floor(Math.random() * 8);
+    this.recoveryPartition = !!Math.floor(Math.random() * 8);
+    this.update = !!Math.floor(Math.random() * 8);
 }
 
 function Repair() {
@@ -19,40 +19,43 @@ function Repair() {
 
 Repair.prototype.sort = function() {
     var pass = false;
-    for(var i in this.queue) {
-        if(this.queue[i].status[0] === "dbu") {
-            this.dbu(i);
-        } else if(this.queue[i].status[0] === "adr") {
-            this.aju(i);
-        } else if(this.queue[i].status[0] === "restore") {
-            pass = this.restore(i);
-            if(pass) {
-                this.queue[i].status.splice(0, 1);
-                this.queue[i].status.push("postops");
-            } else {
-                this.queue[i].status.splice(0, 1);
-                this.queue[i].status.push("service");
-            }
-        } else if(this.queue[i].status[0] === "postops") {
-            pass = this.postOps(i);
-            if(pass) {
-                this.queue[i].status.splice(0, 1);
-                this.queue[i].status.push("complete");
-            } else {
+    while(this.queue.length > 0) {
+        for(var i in this.queue) {
+            if(this.queue[i].status[0] === "dbu") {
+                this.dbu(i);
+            } else if(this.queue[i].status[0] === "adr") {
+                this.aju(i);
+            } else if(this.queue[i].status[0] === "restore") {
                 pass = this.restore(i);
                 if(pass) {
                     this.queue[i].status.splice(0, 1);
-                    this.queue[i].status.push("complete");
+                    this.queue[i].status.push("postops");
                 } else {
                     this.queue[i].status.splice(0, 1);
                     this.queue[i].status.push("service");
                 }
+            } else if(this.queue[i].status[0] === "postops") {
+                pass = this.postOps(i);
+                if(pass) {
+                    this.queue[i].status.splice(0, 1);
+                    this.queue[i].status.push("complete");
+                } else {
+                    pass = this.restore(i);
+                    if(pass) {
+                        this.queue[i].status.splice(0, 1);
+                        this.queue[i].status.push("complete");
+                    } else {
+                        this.queue[i].status.splice(0, 1);
+                        this.queue[i].status.push("service");
+                    }
+                }
+            } else {
+                console.log(this.queue[i].status);
+                this.queue.splice(0, 1);
             }
-        } else {
-            console.log(this.queue[i].status);
-            this.queue.splice(0, 1);
         }
     }
+    console.log("queue neutralized!");
 };
 
 Repair.prototype.dbu = function(index) {
@@ -170,5 +173,8 @@ Repair.prototype.postOps = function(index) {
 var suspect1 = new Suspect(["adr"]);
 var suspect2 = new Suspect(["dbu", "adr"]);
 var suspect3 = new Suspect(["dbu", "restore"]);
-var repair = new Repair(suspect1, suspect2, suspect3);
+var suspect4 = new Suspect(["adr"]);
+var suspect5 = new Suspect(["dbu", "restore"]);
+var suspect6 = new Suspect(["adr"]);
+var repair = new Repair(suspect1, suspect2, suspect3, suspect4, suspect5, suspect6);
 repair.sort();
