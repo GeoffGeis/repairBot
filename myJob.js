@@ -1,4 +1,4 @@
- function Suspect(status) {
+function Suspect(status) {
     this.status = status;
     this.post = !!Math.floor(Math.random() * 10);
     this.hddAccess = !!Math.floor(Math.random() * 3);
