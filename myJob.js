@@ -1,12 +1,12 @@
 function Suspect(status) {
     this.status = status;
-    this.post = !!Math.floor(Math.random() * 8);
-    this.hddAccess = !!Math.floor(Math.random() * 8);
-    this.hddMount = !!Math.floor(Math.random() * 8);
+    this.post = !!Math.floor(Math.random() * 10);
+    this.hddAccess = !!Math.floor(Math.random() * 3);
+    this.hddMount = !!Math.floor(Math.random() * 5);
     this.userAccount = !!Math.floor(Math.random() * 8);
     this.networking = !!Math.floor(Math.random() * 8);
     this.browserDownloads = !!Math.floor(Math.random() * 8);
-    this.recoveryPartition = !!Math.floor(Math.random() * 8);
+    this.recoveryPartition = !!Math.floor(Math.random() * 3);
     this.update = !!Math.floor(Math.random() * 8);
 }
 
